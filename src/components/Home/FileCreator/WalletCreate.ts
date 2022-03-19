@@ -45,7 +45,7 @@ export const create = async ({ fund, outputFile }: CreateWalletCommand): Promise
   const json = await wallet.encrypt("javinchua");
   const outputPath = path.resolve(outputFile);
   // fs.writeFileSync(outputPath, json);
-  downloadObjectAsJson(json, "wallet.json");
+  downloadObjectAsJson(json, "wallet");
 
   if (fund === "ropsten") {
     const response = await fetch(`https://faucet.openattestation.com/donate/${wallet.address}`).then((res) =>
