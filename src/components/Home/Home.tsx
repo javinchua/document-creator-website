@@ -4,7 +4,7 @@ import { useConfigContext } from "../../common/context/config";
 import { usePersistedConfigFile } from "../../common/hook/usePersistedConfigFile";
 import { ConfigFileDropZoneContainer } from "./ConfigFileDropZone";
 import { WalletDecryptionContainer } from "./WalletDecryption/WalletDecryptionContainer";
-
+import { ConfigCreator } from "./FileCreator/ConfigCreator";
 export const HomeContainer: FunctionComponent = () => {
   const { config } = useConfigContext();
   const { configFile } = usePersistedConfigFile();
@@ -12,5 +12,11 @@ export const HomeContainer: FunctionComponent = () => {
   // If wallet has been decrypted, redirect to forms
   if (config) return <Redirect to="/forms-selection" />;
 
-  return configFile ? <WalletDecryptionContainer /> : <ConfigFileDropZoneContainer />;
+  return configFile ? (
+    <WalletDecryptionContainer />
+  ) : (
+    <>
+      <ConfigCreator /> <ConfigFileDropZoneContainer />
+    </>
+  );
 };
