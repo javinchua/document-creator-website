@@ -39,10 +39,9 @@ function downloadObjectAsJson(exportObj: any, exportName: string) {
   downloadAnchorNode.remove();
 }
 
-export const create = async ({ fund, outputFile }: CreateWalletCommand): Promise<string> => {
-  console.log("hello");
+export const create = async ({ fund, outputFile }: CreateWalletCommand, password: string): Promise<string> => {
   const wallet = ethers.Wallet.createRandom();
-  const json = await wallet.encrypt("javinchua");
+  const json = await wallet.encrypt(password);
   const outputPath = path.resolve(outputFile);
   // fs.writeFileSync(outputPath, json);
   downloadObjectAsJson(json, "wallet");
