@@ -2,7 +2,7 @@ import { Button } from "@govtechsg/tradetrust-ui-components";
 import { create } from "./WalletCreate";
 import { useState } from "react";
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const ConfigCreator = () => {
+export const WalletConfigCreator = () => {
   // Start file download.
   //   onClick={() => download("hello.txt", "This is the content of my file :)")}
   const [password, setPassword] = useState("");

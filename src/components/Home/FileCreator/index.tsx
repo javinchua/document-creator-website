@@ -1,1 +1,1 @@
-export * from "./ConfigCreator";
+export * from "./WalletConfigCreator";
