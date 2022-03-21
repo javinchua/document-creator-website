@@ -1,6 +1,5 @@
 import { utils, v2, v3 } from "@govtechsg/open-attestation";
 import fetch from "node-fetch";
-import { info, success } from "signale";
 import fs from "fs";
 import { deployDocumentStore } from "./document-store";
 import { deployTokenRegistry } from "./token-registry";
@@ -119,32 +118,36 @@ export const getConfigFile = async (configTemplatePath: string, configTemplateUr
   throw new Error("Config template reference not provided.");
 };
 
-export const getTokenRegistryAddress = async (encryptedWalletPath: string): Promise<string> => {
-  info(`Enter password to continue deployment of Token Registry`);
-  const tokenRegistry = await deployTokenRegistry({
-    encryptedWalletPath,
-    network: "ropsten",
-    gasPriceScale: 1,
-    dryRun: false,
-    registryName: "Token Registry",
-    registrySymbol: "TR",
-  });
+export const getTokenRegistryAddress = async (encryptedWalletPath: string, password: string): Promise<string> => {
+  const tokenRegistry = await deployTokenRegistry(
+    {
+      encryptedWalletPath,
+      network: "ropsten",
+      gasPriceScale: 1,
+      dryRun: false,
+      registryName: "Token Registry",
+      registrySymbol: "TR",
+    },
+    password
+  );
   const { contractAddress } = tokenRegistry;
-  success(`Token registry deployed, address: ${highlight(contractAddress)}`);
+  console.log(`Token registry deployed, address: ${highlight(contractAddress)}`);
   return contractAddress;
 };
 
-export const getDocumentStoreAddress = async (encryptedWalletPath: string): Promise<string> => {
-  info(`Enter password to continue deployment of Document Store`);
-  const documentStore = await deployDocumentStore({
-    encryptedWalletPath,
-    network: "ropsten",
-    gasPriceScale: 1,
-    dryRun: false,
-    storeName: "Document Store",
-  });
+export const getDocumentStoreAddress = async (encryptedWalletPath: string, password: string): Promise<string> => {
+  const documentStore = await deployDocumentStore(
+    {
+      encryptedWalletPath,
+      network: "ropsten",
+      gasPriceScale: 1,
+      dryRun: false,
+      storeName: "Document Store",
+    },
+    password
+  );
   const { contractAddress } = documentStore;
-  success(`Document store deployed, address: ${highlight(contractAddress)}`);
+  console.log(`Document store deployed, address: ${highlight(contractAddress)}`);
   return contractAddress;
 };
 

@@ -1,8 +1,8 @@
 import fs from "fs";
 import path from "path";
-import { handler as createTemporaryDns } from "../../commands/dns/txt-record/create";
-import { CreateConfigCommand } from "../../commands/config/config.type";
-import { Dns } from "./types";
+import { handler as createTemporaryDns } from "./createHandler";
+import { CreateConfigCommand } from "./config.type";
+import { Dns } from "./helpers";
 import {
   getConfigWithUpdatedWallet,
   getConfigWithUpdatedForms,
@@ -18,12 +18,10 @@ const SANDBOX_ENDPOINT_URL = "https://sandbox.fyntech.io";
 export const readFile = (filename: string): any => {
   return fs.readFileSync(filename, "utf8");
 };
-export const create = async ({
-  encryptedWalletPath,
-  outputDir,
-  configTemplatePath,
-  configTemplateUrl,
-}: CreateConfigCommand): Promise<string> => {
+export const create = async (
+  { encryptedWalletPath, outputDir, configTemplatePath, configTemplateUrl }: CreateConfigCommand,
+  password: string
+): Promise<string> => {
   const walletStr = await readFile(encryptedWalletPath);
   const { address } = JSON.parse(walletStr);
   console.log(`Wallet detected at ${encryptedWalletPath}`);
@@ -60,7 +58,7 @@ export const create = async ({
   let dnsDid: Dns = "";
 
   if (hasTransferableRecord) {
-    tokenRegistryAddress = await getTokenRegistryAddress(encryptedWalletPath);
+    tokenRegistryAddress = await getTokenRegistryAddress(encryptedWalletPath, password);
     dnsTransferableRecord = await createTemporaryDns({
       networkId: 3,
       address: tokenRegistryAddress,
@@ -69,7 +67,7 @@ export const create = async ({
   }
 
   if (hasDocumentStore) {
-    documentStoreAddress = await getDocumentStoreAddress(encryptedWalletPath);
+    documentStoreAddress = await getDocumentStoreAddress(encryptedWalletPath, password);
     dnsVerifiable = await createTemporaryDns({
       networkId: 3,
       address: documentStoreAddress,

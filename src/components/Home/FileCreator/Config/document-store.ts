@@ -1,16 +1,12 @@
 import { DocumentStoreFactory } from "@govtechsg/document-store";
-import signale from "signale";
 import { DeployDocumentStoreCommand } from "./deploy.types";
 import { getWalletOrSigner } from "./utils";
 import { dryRunMode } from "./utils";
 
-export const deployDocumentStore = async ({
-  storeName,
-  network,
-  gasPriceScale,
-  dryRun,
-  ...rest
-}: DeployDocumentStoreCommand): Promise<{ contractAddress: string }> => {
+export const deployDocumentStore = async (
+  { storeName, network, gasPriceScale, dryRun, ...rest }: DeployDocumentStoreCommand,
+  password: string
+): Promise<{ contractAddress: string }> => {
   if (dryRun) {
     await dryRunMode({
       gasPriceScale: gasPriceScale,
@@ -20,13 +16,13 @@ export const deployDocumentStore = async ({
     process.exit(0);
   }
 
-  const wallet = await getWalletOrSigner({ network, ...rest });
+  const wallet = await getWalletOrSigner({ network, ...rest }, password);
   const gasPrice = await wallet.provider.getGasPrice();
   const factory = new DocumentStoreFactory(wallet);
-  signale.await(`Sending transaction to pool`);
+  console.log(`Sending transaction to pool`);
   const transaction = await factory.deploy(storeName, { gasPrice: gasPrice.mul(gasPriceScale) });
   console.log(`Tx hash: ${transaction.deployTransaction.hash}`);
   console.log(`Block Number: ${transaction.deployTransaction.blockNumber}`);
-  signale.await(`Waiting for transaction ${transaction.deployTransaction.hash} to be mined`);
+  console.log(`Waiting for transaction ${transaction.deployTransaction.hash} to be mined`);
   return transaction.deployTransaction.wait();
 };

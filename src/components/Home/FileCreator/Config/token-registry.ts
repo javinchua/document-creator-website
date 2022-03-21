@@ -4,15 +4,11 @@ import { TransactionReceipt } from "@ethersproject/providers";
 import { DeployTokenRegistryCommand } from "./deploy.types";
 import { dryRunMode } from "./utils";
 
-export const deployTokenRegistry = async ({
-  registryName,
-  registrySymbol,
-  network,
-  gasPriceScale,
-  dryRun,
-  ...rest
-}: DeployTokenRegistryCommand): Promise<TransactionReceipt> => {
-  const wallet = await getWalletOrSigner({ network, ...rest });
+export const deployTokenRegistry = async (
+  { registryName, registrySymbol, network, gasPriceScale, dryRun, ...rest }: DeployTokenRegistryCommand,
+  password: string
+): Promise<TransactionReceipt> => {
+  const wallet = await getWalletOrSigner({ network, ...rest }, password);
   const factory = new TradeTrustErc721Factory(wallet);
   if (dryRun) {
     const unsignedTx = factory.getDeployTransaction(registryName, registrySymbol, {});

@@ -3,7 +3,6 @@ import { ethers, getDefaultProvider, providers, Signer, Wallet, utils } from "et
 import { Provider } from "@ethersproject/abstract-provider";
 import fs from "fs";
 import { isAwsKmsSignerOption, isWalletOption, NetworkOption, PrivateKeyOption, WalletOrSignerOption } from "./shared";
-import inquirer from "inquirer";
 import { AwsKmsSigner } from "ethers-aws-kms-signer";
 import fetch from "node-fetch";
 import { BigNumber } from "ethers";
@@ -40,16 +39,16 @@ export const getPrivateKey = ({ keyFile, key }: PrivateKeyOption): string | unde
   return key || getKeyFromFile(keyFile) || process.env["OA_PRIVATE_KEY"];
 };
 
-export const getWalletOrSigner = async ({
-  network,
-  ...options
-}: WalletOrSignerOption & Partial<NetworkOption>): Promise<Wallet | ConnectedSigner> => {
+export const getWalletOrSigner = async (
+  { network, ...options }: WalletOrSignerOption & Partial<NetworkOption>,
+  password: string
+): Promise<Wallet | ConnectedSigner> => {
   const provider =
     network === "local"
       ? new providers.JsonRpcProvider()
       : getDefaultProvider(network === "mainnet" ? "homestead" : network); // homestead => aka mainnet
   if (isWalletOption(options)) {
-    const { password } = await inquirer.prompt({ type: "password", name: "password", message: "Wallet password" });
+    // const { password } = await inquirer.prompt({ type: "password", name: "password", message: "Wallet password" });
 
     const file = await readFile(options.encryptedWalletPath);
     const wallet = await ethers.Wallet.fromEncryptedJson(file, password);
@@ -145,7 +144,7 @@ Get more information about gas: https://ethereum.stackexchange.com/questions/3/w
 
   console.log(green("Information about the transaction:"));
   console.log(
-    `Estimated gas required: ${highlight(_estimatedGas.toNumber())} gas, which will cost approximately ${highlight(
+    `Estimated gas required: ${_estimatedGas.toNumber()} gas, which will cost approximately ${highlight(
       utils.formatEther(_estimatedGas.mul(gasPrice))
     )} eth based on the selected gas price`
   );

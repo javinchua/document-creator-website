@@ -5,6 +5,7 @@ import { usePersistedConfigFile } from "../../common/hook/usePersistedConfigFile
 import { ConfigFileDropZoneContainer } from "./ConfigFileDropZone";
 import { WalletDecryptionContainer } from "./WalletDecryption/WalletDecryptionContainer";
 import { WalletConfigCreator } from "./FileCreator/WalletConfigCreator";
+import { ConfigFileCreator } from "./FileCreator/Config/ConfigFileCreator";
 export const HomeContainer: FunctionComponent = () => {
   const { config } = useConfigContext();
   const { configFile } = usePersistedConfigFile();
@@ -16,7 +17,8 @@ export const HomeContainer: FunctionComponent = () => {
     <WalletDecryptionContainer />
   ) : (
     <>
-      <WalletConfigCreator /> <ConfigFileDropZoneContainer />
+      <WalletConfigCreator />
+      <ConfigFileCreator /> <ConfigFileDropZoneContainer />
     </>
   );
 };
