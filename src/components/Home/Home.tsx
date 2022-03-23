@@ -6,6 +6,7 @@ import { ConfigFileDropZoneContainer } from "./ConfigFileDropZone";
 import { WalletDecryptionContainer } from "./WalletDecryption/WalletDecryptionContainer";
 import { WalletConfigCreator } from "./FileCreator/WalletConfigCreator";
 import { ConfigFileCreator } from "./FileCreator/Config/ConfigFileCreator";
+import { WalletFileDropZoneContainer } from "./FileCreator/Config/WalletFileDropZone/WalletFileDropZoneContainer";
 export const HomeContainer: FunctionComponent = () => {
   const { config } = useConfigContext();
   const { configFile } = usePersistedConfigFile();
@@ -18,6 +19,7 @@ export const HomeContainer: FunctionComponent = () => {
   ) : (
     <>
       <WalletConfigCreator />
+      <WalletFileDropZoneContainer />
       <ConfigFileCreator /> <ConfigFileDropZoneContainer />
     </>
   );
