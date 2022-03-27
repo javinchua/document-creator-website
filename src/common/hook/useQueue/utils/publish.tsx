@@ -66,7 +66,7 @@ export const getRawDocuments = async (forms: FormEntry[], config: Config): Promi
     forms.map(async ({ data, templateIndex, fileName, ownership, extension }) => {
       let qrUrl = {};
 
-      if (config.network !== "local") {
+      if (config.network !== "local" && config.network !== "maticmum") {
         if (config.documentStorage !== undefined) {
           qrUrl = await getReservedStorageUrl(config.documentStorage, config.network);
         }

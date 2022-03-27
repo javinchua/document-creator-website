@@ -29,12 +29,12 @@ export const getConnectedDocumentStore = async (
   const documentStore = GsnCapableDocumentStoreFactory.connect(contractAddress, account);
   // Determine if contract is gsn capable
   const isGsnCapable = await supportsInterface(documentStore, "0xa5a23640");
-  if (!isGsnCapable) return DocumentStoreFactory.connect(contractAddress, account);
+  if (!isGsnCapable) return DocumentStoreFactory.connect(contractAddress, account) as DocumentStore;
   // Get paymaster address and the relevant gsnProvider
   const paymasterAddress = await documentStore.getPaymaster();
   const gsnRelaySigner = await getGsnRelaySigner(account, paymasterAddress);
   const gsnDocumentStore = GsnCapableDocumentStoreFactory.connect(contractAddress, gsnRelaySigner);
-  return gsnDocumentStore;
+  return gsnDocumentStore as DocumentStore;
 };
 
 export const publishVerifiableDocumentJob = async (
@@ -77,6 +77,7 @@ const CREATOR_CONTRACTS: CreatorContract = {
   homestead: "0x907A4D491A09D59Bcb5dC38eeb9d121ac47237F1",
   ropsten: "0xB0dE5E22bAc12820b6dbF6f63287B1ec44026c83",
   rinkeby: "0xa51B8dAC076d5aC80507041146AC769542aAe195",
+  maticmum: "0xFD7D61A12b6Fd8EeDafD432790A71F250B500920",
   // unknown is used for local test net, see integration test
   unknown: "0x4Bf7E4777a8D1b6EdD5F2d9b8582e2817F0B0953",
 };

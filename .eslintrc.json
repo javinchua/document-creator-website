@@ -36,7 +36,13 @@
       "rules": {
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-shadow": ["error"]
+        "@typescript-eslint/no-shadow": ["error"],
+        "prettier/prettier": [
+          "error",
+          {
+            "endOfLine": "auto"
+          }
+        ]
       }
     },
     {

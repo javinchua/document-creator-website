@@ -2,7 +2,7 @@ import { Wallet, Signer } from "ethers";
 import { Provider } from "@ethersproject/abstract-provider";
 import { OpenAttestationDocument } from "@govtechsg/open-attestation";
 
-export type Network = "homestead" | "ropsten" | "rinkeby" | "local";
+export type Network = "homestead" | "ropsten" | "rinkeby" | "maticmum" | "local";
 type FormType = "TRANSFERABLE_RECORD" | "VERIFIABLE_DOCUMENT";
 
 // FormTemplate is defined in configuration file

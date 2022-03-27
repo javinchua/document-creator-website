@@ -65,7 +65,11 @@ export const decryptWalletOrSigner = async (
   progressCallback: (progress: number) => void
 ): Promise<Wallet | ConnectedSigner> => {
   const provider =
-    config.network === "local" ? new providers.JsonRpcProvider() : utils.generateProvider({ network: config.network });
+    config.network === "local"
+      ? new providers.JsonRpcProvider()
+      : config.network === "maticmum"
+      ? new providers.JsonRpcProvider("https://matic-testnet-archive-rpc.bwarelabs.com")
+      : utils.generateProvider({ network: config.network });
   if (isWalletOption(config.wallet)) {
     // For backward compatibility when the wallet is still string
     return decryptEncryptedJson(config.wallet, password, progressCallback, provider);
