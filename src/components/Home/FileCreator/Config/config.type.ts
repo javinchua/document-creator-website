@@ -1,6 +1,6 @@
 export interface CreateConfigCommand {
   outputDir: string;
-  encryptedWalletPath: string;
+  encryptedWalletPath: any;
   configTemplatePath: string;
   configTemplateUrl: string;
 }

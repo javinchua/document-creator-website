@@ -1,4 +1,3 @@
-import fs from "fs";
 import path from "path";
 import { handler as createTemporaryDns } from "./createHandler";
 import { CreateConfigCommand } from "./config.type";
@@ -14,15 +13,27 @@ import {
 import { utils, v2, v3 } from "@govtechsg/open-attestation";
 
 const SANDBOX_ENDPOINT_URL = "https://sandbox.fyntech.io";
+// const walletStr = await readFile(encryptedWalletPath);
 
-export const readFile = (filename: string): any => {
-  return fs.readFileSync(filename, "utf8");
-};
+// export const readFile = (filename: string): any => {
+//   return fs.readFileSync(filename, "utf8");
+// };
+
 export const create = async (
   { encryptedWalletPath, outputDir, configTemplatePath, configTemplateUrl }: CreateConfigCommand,
   password: string
 ): Promise<string> => {
-  const walletStr = await readFile(encryptedWalletPath);
+  function downloadObjectAsJson(exportObj: any, exportName: string) {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(exportObj);
+    const downloadAnchorNode = document.createElement("a");
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+  }
+
+  const walletStr = JSON.stringify(encryptedWalletPath);
   const { address } = JSON.parse(walletStr);
   console.log(`Wallet detected at ${encryptedWalletPath}`);
 
@@ -95,7 +106,7 @@ export const create = async (
   });
 
   const outputPath = path.join(outputDir, "config.json");
-  fs.writeFileSync(outputPath, JSON.stringify(updatedConfigFileWithForms, null, 2));
-
+  // fs.writeFileSync(outputPath, JSON.stringify(updatedConfigFileWithForms, null, 2));
+  downloadObjectAsJson(JSON.stringify(updatedConfigFileWithForms, null, 2), "config");
   return outputPath;
 };
