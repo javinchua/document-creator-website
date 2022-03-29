@@ -9,6 +9,7 @@ interface INewFieldProps {
   index: number;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const NewField = ({ field, handleFieldName, handleFieldType, index }: INewFieldProps): JSX.Element => {
   return (
     <div className="flex flex-row justify-between mt-4">

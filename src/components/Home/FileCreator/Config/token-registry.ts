@@ -22,7 +22,10 @@ export const deployTokenRegistry = async (
   }
   const gasPrice = await wallet.provider.getGasPrice();
   console.log(`Sending transaction to pool`);
-  const transaction = await factory.deploy(registryName, registrySymbol, { gasPrice: gasPrice.mul(gasPriceScale) });
+  const transaction = await factory.deploy(registryName, registrySymbol, {
+    gasPrice: gasPrice.mul(gasPriceScale),
+    gasLimit: "5000000",
+  });
   console.log(`Tx hash: ${transaction.deployTransaction.hash}`);
   console.log(`Block Number: ${transaction.deployTransaction.blockNumber}`);
   console.log(`Waiting for transaction ${transaction.deployTransaction.hash} to be mined`);

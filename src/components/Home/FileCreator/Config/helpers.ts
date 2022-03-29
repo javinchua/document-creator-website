@@ -122,7 +122,7 @@ export const getTokenRegistryAddress = async (encryptedWalletPath: string, passw
   const tokenRegistry = await deployTokenRegistry(
     {
       encryptedWalletPath,
-      network: "ropsten",
+      network: "maticmum",
       gasPriceScale: 1,
       dryRun: false,
       registryName: "Token Registry",
@@ -156,7 +156,6 @@ export const validate = (forms: Form[]): boolean => {
     const formTypeCheckList = ["TRANSFERABLE_RECORD", "VERIFIABLE_DOCUMENT"];
     const isValidFormType = formTypeCheckList.includes(form.type);
     let isValidIdentityProofType: boolean;
-
     const identityProofTypeCheckList = ["DNS-TXT", "DNS-DID", "DID"];
     // test for v2/v3 form defaults
     if (utils.isRawV3Document(form.defaults)) {

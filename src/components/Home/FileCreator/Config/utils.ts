@@ -46,11 +46,12 @@ export const getWalletOrSigner = async (
   const provider =
     network === "local"
       ? new providers.JsonRpcProvider()
+      : network === "maticmum"
+      ? new providers.JsonRpcProvider("https://matic-testnet-archive-rpc.bwarelabs.com")
       : getDefaultProvider(network === "mainnet" ? "homestead" : network); // homestead => aka mainnet
   if (isWalletOption(options)) {
     // const { password } = await inquirer.prompt({ type: "password", name: "password", message: "Wallet password" });
-
-    const file = await readFile(options.encryptedWalletPath);
+    const file = JSON.stringify(options.encryptedWalletPath);
     const wallet = await ethers.Wallet.fromEncryptedJson(file, password);
     console.log("Wallet successfully decrypted");
     return wallet.connect(provider);

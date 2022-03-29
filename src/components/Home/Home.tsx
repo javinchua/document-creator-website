@@ -8,10 +8,14 @@ import { WalletConfigCreator } from "./FileCreator/WalletConfigCreator";
 import { ConfigFileCreator } from "./FileCreator/Config/ConfigFileCreator";
 import { WalletFileDropZoneContainer } from "./FileCreator/Config/WalletFileDropZone/WalletFileDropZoneContainer";
 import { ConfigTemplateCreator } from "./FileCreator/Config/ConfigTemplateCreator";
+import { useState } from "react";
 export const HomeContainer: FunctionComponent = () => {
   const { config } = useConfigContext();
   const { configFile } = usePersistedConfigFile();
-
+  const [jsonConfig, setJsonConfig] = useState<Record<string, unknown>>();
+  const handlerJson = (object: Record<string, unknown>) => {
+    setJsonConfig(object);
+  };
   // If wallet has been decrypted, redirect to forms
   if (config) return <Redirect to="/forms-selection" />;
 
@@ -21,8 +25,8 @@ export const HomeContainer: FunctionComponent = () => {
     <>
       <WalletConfigCreator />
       <WalletFileDropZoneContainer />
-      <ConfigTemplateCreator />
-      <ConfigFileCreator /> <ConfigFileDropZoneContainer />
+      <ConfigTemplateCreator handlerJson={handlerJson} />
+      <ConfigFileCreator jsonConfig={jsonConfig} /> <ConfigFileDropZoneContainer />
     </>
   );
 };

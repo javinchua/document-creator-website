@@ -37,7 +37,7 @@ export type WalletOption = {
 };
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const isWalletOption = (option: any): option is WalletOption => {
-  return typeof option?.encryptedWalletPath === "string";
+  return typeof option?.encryptedWalletPath === "object";
 };
 
 export type WalletOrSignerOption = Partial<PrivateKeyOption> | Partial<AwsKmsSignerOption> | Partial<WalletOption>;

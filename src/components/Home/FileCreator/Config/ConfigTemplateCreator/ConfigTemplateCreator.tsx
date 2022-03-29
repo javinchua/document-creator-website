@@ -7,9 +7,11 @@ export interface IField {
   fieldType: string;
   fieldName: string;
 }
-
-export const ConfigTemplateCreator: FunctionComponent = () => {
-  const [fields, setFields] = useState<IField[]>([{ fieldType: "string", fieldName: "name" }]);
+export interface Props {
+  handlerJson: (json: any) => void;
+}
+export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson }) => {
+  const [fields, setFields] = useState<IField[]>([]);
   const addField = () => {
     setFields((prevState: IField[]) => {
       if (prevState) {
@@ -32,7 +34,107 @@ export const ConfigTemplateCreator: FunctionComponent = () => {
       return prevState;
     });
   };
-
+  const turnToJson = () => {
+    const array = [];
+    for (let i = 0; i < fields.length; i++) {
+      const name = fields[i].fieldName;
+      const temp = {
+        title: name,
+        type: fields[i].fieldType,
+      };
+      array.push(temp);
+    }
+    const object = array.reduce((obj, item) => {
+      return {
+        ...obj,
+        [item["title"]]: item,
+      };
+    }, {});
+    const updatedObject = {
+      network: "maticmum",
+      wallet: {
+        type: "ENCRYPTED_JSON",
+      },
+      schema: {
+        type: "object",
+        required: ["blNumber"],
+        properties: {
+          blNumber: {
+            type: "string",
+            title: "BL Number",
+          },
+          logo: {
+            title: "Logo",
+            type: "string",
+          },
+          companyName: {
+            title: "Company Name",
+            type: "string",
+          },
+          field1: {
+            title: "Field1",
+            type: "string",
+          },
+          field2: {
+            title: "Field2",
+            type: "string",
+          },
+          field3: {
+            title: "Field3",
+            type: "string",
+          },
+          field4: {
+            title: "Field4",
+            type: "string",
+          },
+          field5: {
+            title: "Field5",
+            type: "string",
+          },
+          field6: {
+            title: "Field6",
+            type: "string",
+          },
+          field7: {
+            title: "Field7",
+            type: "string",
+          },
+          field8: {
+            title: "Field8",
+            type: "number",
+          },
+          field9: {
+            title: "Field9",
+            type: "boolean",
+          },
+        },
+      },
+      forms: [
+        {
+          ...object,
+          type: "TRANSFERABLE_RECORD",
+          defaults: {
+            $template: {
+              type: "EMBEDDED_RENDERER",
+              name: "BILL_OF_LADING_GENERIC",
+              url: "https://generic-templates.tradetrust.io",
+            },
+            issuers: [
+              {
+                identityProof: {
+                  type: "DNS-TXT",
+                  location: "<Issuer's domain>",
+                },
+                name: "DEMO TOKEN REGISTRY",
+                tokenRegistry: "<Your token registry>",
+              },
+            ],
+          },
+        },
+      ],
+    };
+    handlerJson(updatedObject);
+  };
   return (
     <div className="flex flex-col items-center w-1/2 p-3 mx-auto text-center">
       <h2>Step 3: Fill in your form details</h2>
@@ -54,7 +156,10 @@ export const ConfigTemplateCreator: FunctionComponent = () => {
       <div className="underline cursor-pointer text-cerulean" onClick={addField}>
         Add new field
       </div>
-      <Button className="block mx-auto mt-4 mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500">
+      <Button
+        className="block mx-auto mt-4 mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
+        onClick={() => turnToJson()}
+      >
         Submit
       </Button>
     </div>
