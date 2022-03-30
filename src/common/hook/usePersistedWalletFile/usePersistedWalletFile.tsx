@@ -1,7 +1,7 @@
 import createPersistedState from "use-persisted-state";
 import { Wallet } from "ethers";
 
-const useWalletFile = createPersistedState("WALLET_FILE");
+const useWalletFile = createPersistedState<Wallet | Record<string, null>>("WALLET_FILE");
 
 export const usePersistedWalletFile = (): {
   walletFile?: Wallet;

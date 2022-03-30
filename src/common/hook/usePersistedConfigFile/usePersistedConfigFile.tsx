@@ -1,7 +1,7 @@
 import createPersistedState from "use-persisted-state";
 import { ConfigFile } from "../../../types";
 
-const useConfigFile = createPersistedState("CONFIG_FILE");
+const useConfigFile = createPersistedState<ConfigFile | Record<string, null>>("CONFIG_FILE");
 
 export const usePersistedConfigFile = (): {
   configFile?: ConfigFile;
