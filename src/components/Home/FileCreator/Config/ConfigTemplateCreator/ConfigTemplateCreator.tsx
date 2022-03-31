@@ -50,6 +50,12 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson })
         [item["title"]]: item,
       };
     }, {});
+    const defaultObject = array.reduce((obj, item) => {
+      return {
+        ...obj,
+        [item["title"]]: item["title"],
+      };
+    }, {});
     const updatedObject = {
       network: "maticmum",
       wallet: {
@@ -57,7 +63,6 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson })
       },
       forms: [
         {
-          ...object,
           name: "Bill of landing",
           type: "TRANSFERABLE_RECORD",
           defaults: {
@@ -76,11 +81,13 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson })
                 tokenRegistry: "<Your token registry>",
               },
             ],
+            ...defaultObject,
           },
           schema: {
             type: "object",
             required: ["blNumber"],
             properties: {
+              ...object,
               blNumber: {
                 type: "string",
                 title: "BL Number",
