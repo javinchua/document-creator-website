@@ -27,7 +27,6 @@ export const WalletFileDropZone: FunctionComponent<WalletFileDropZone> = ({ onWa
     try {
       const file = files[0];
       const config = await readFileAsJson<Wallet>(file);
-      console.log(config);
       setFileErrors(undefined);
       onWalletFile(config);
     } catch (e) {

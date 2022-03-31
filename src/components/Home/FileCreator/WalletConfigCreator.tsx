@@ -15,7 +15,7 @@ export const WalletConfigCreator = () => {
         <h1>Step 1: Create your wallet.json file</h1>
         <form>
           <p>Key in the password of your wallet.json file:</p>
-          <input type="text" onChange={handleChange} placeholder="Password" />
+          <input type="password" onChange={handleChange} placeholder="Password" />
         </form>
       </div>
       <div>

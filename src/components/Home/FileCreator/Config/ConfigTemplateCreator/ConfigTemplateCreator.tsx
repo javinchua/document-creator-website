@@ -55,63 +55,10 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson })
       wallet: {
         type: "ENCRYPTED_JSON",
       },
-      schema: {
-        type: "object",
-        required: ["blNumber"],
-        properties: {
-          blNumber: {
-            type: "string",
-            title: "BL Number",
-          },
-          logo: {
-            title: "Logo",
-            type: "string",
-          },
-          companyName: {
-            title: "Company Name",
-            type: "string",
-          },
-          field1: {
-            title: "Field1",
-            type: "string",
-          },
-          field2: {
-            title: "Field2",
-            type: "string",
-          },
-          field3: {
-            title: "Field3",
-            type: "string",
-          },
-          field4: {
-            title: "Field4",
-            type: "string",
-          },
-          field5: {
-            title: "Field5",
-            type: "string",
-          },
-          field6: {
-            title: "Field6",
-            type: "string",
-          },
-          field7: {
-            title: "Field7",
-            type: "string",
-          },
-          field8: {
-            title: "Field8",
-            type: "number",
-          },
-          field9: {
-            title: "Field9",
-            type: "boolean",
-          },
-        },
-      },
       forms: [
         {
           ...object,
+          name: "Bill of landing",
           type: "TRANSFERABLE_RECORD",
           defaults: {
             $template: {
@@ -129,6 +76,60 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson })
                 tokenRegistry: "<Your token registry>",
               },
             ],
+          },
+          schema: {
+            type: "object",
+            required: ["blNumber"],
+            properties: {
+              blNumber: {
+                type: "string",
+                title: "BL Number",
+              },
+              logo: {
+                title: "Logo",
+                type: "string",
+              },
+              companyName: {
+                title: "Company Name",
+                type: "string",
+              },
+              field1: {
+                title: "Field1",
+                type: "string",
+              },
+              field2: {
+                title: "Field2",
+                type: "string",
+              },
+              field3: {
+                title: "Field3",
+                type: "string",
+              },
+              field4: {
+                title: "Field4",
+                type: "string",
+              },
+              field5: {
+                title: "Field5",
+                type: "string",
+              },
+              field6: {
+                title: "Field6",
+                type: "string",
+              },
+              field7: {
+                title: "Field7",
+                type: "string",
+              },
+              field8: {
+                title: "Field8",
+                type: "number",
+              },
+              field9: {
+                title: "Field9",
+                type: "boolean",
+              },
+            },
           },
         },
       ],

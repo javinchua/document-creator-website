@@ -21,7 +21,7 @@ export const ConfigFileCreator: FunctionComponent<JsonProps> = ({ jsonConfig }) 
         <h2>Step 4: Create your config.json file</h2>
         <form>
           <p>Key in the password of your wallet.json file:</p>
-          <input type="text" onChange={handleChange} placeholder="Password" />
+          <input type="password" onChange={handleChange} placeholder="Password" />
         </form>
       </div>
       <div>
