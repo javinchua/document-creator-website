@@ -2,37 +2,45 @@ import { Button } from "@govtechsg/tradetrust-ui-components";
 import { create } from "./ConfigCreate";
 import { useState, FunctionComponent } from "react";
 import { usePersistedWalletFile } from "../../../../common/hook/usePersistedWalletFile";
+import { CircularProgress } from "@material-ui/core";
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 
 export interface JsonProps {
   jsonConfig: any;
+  next: () => void;
 }
-export const ConfigFileCreator: FunctionComponent<JsonProps> = ({ jsonConfig }) => {
+export const ConfigFileCreator: FunctionComponent<JsonProps> = ({ jsonConfig, next }) => {
   // Start file download.
   //   onClick={() => download("hello.txt", "This is the content of my file :)")}
   const [password, setPassword] = useState("");
+  const [creating, setCreating] = useState(false);
+  const { walletFile } = usePersistedWalletFile();
   const handleChange = (event: { target: { value: any } }) => {
     setPassword(event.target.value);
   };
-  const { walletFile } = usePersistedWalletFile();
+  const handleCreate = () => {
+    setCreating(true);
+    create({ outputDir: "", encryptedWalletPath: walletFile, configTemplatePath: jsonConfig }, password).then(() => {
+      setCreating(false);
+      next();
+    });
+  };
   return (
     <div className="flex flex-col p-3 text-center">
       <div className="p-3">
-        <h2>Step 4: Create your config.json file</h2>
+        <h2>Step 4: Create your form configuration file</h2>
         <form>
-          <p>Key in the password of your wallet.json file:</p>
+          <p className="mb-4">Please enter the password of your wallet file</p>
           <input type="password" onChange={handleChange} placeholder="Password" />
         </form>
       </div>
       <div>
         <Button
-          disabled={password === "" || typeof walletFile === "undefined" ? true : false}
-          className="bg-cerulean text-white hover:bg-cerulean-500 border-gray-300 block mx-auto mb-5"
-          onClick={() =>
-            create({ outputDir: "", encryptedWalletPath: walletFile, configTemplatePath: jsonConfig }, password)
-          }
+          disabled={password === "" || typeof walletFile === "undefined" || creating}
+          className="block w-24 mx-auto mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
+          onClick={handleCreate}
         >
-          Create and download your config.json file
+          {creating ? <CircularProgress size={18} /> : "Download"}
         </Button>
       </div>
     </div>

@@ -9,15 +9,13 @@ export interface IField {
 }
 export interface Props {
   handlerJson: (json: any) => void;
+  next: () => void;
 }
-export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson }) => {
-  const [fields, setFields] = useState<IField[]>([]);
+export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson, next }) => {
+  const [fields, setFields] = useState<IField[]>([{} as IField]);
   const addField = () => {
     setFields((prevState: IField[]) => {
-      if (prevState) {
-        return [...prevState, {} as IField];
-      }
-      return [{} as IField];
+      return [...prevState, {} as IField];
     });
   };
 
@@ -87,7 +85,6 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson })
             type: "object",
             required: ["blNumber"],
             properties: {
-              ...object,
               blNumber: {
                 type: "string",
                 title: "BL Number",
@@ -100,48 +97,14 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson })
                 title: "Company Name",
                 type: "string",
               },
-              field1: {
-                title: "Field1",
-                type: "string",
-              },
-              field2: {
-                title: "Field2",
-                type: "string",
-              },
-              field3: {
-                title: "Field3",
-                type: "string",
-              },
-              field4: {
-                title: "Field4",
-                type: "string",
-              },
-              field5: {
-                title: "Field5",
-                type: "string",
-              },
-              field6: {
-                title: "Field6",
-                type: "string",
-              },
-              field7: {
-                title: "Field7",
-                type: "string",
-              },
-              field8: {
-                title: "Field8",
-                type: "number",
-              },
-              field9: {
-                title: "Field9",
-                type: "boolean",
-              },
+              ...object,
             },
           },
         },
       ],
     };
     handlerJson(updatedObject);
+    next();
   };
   return (
     <div className="flex flex-col items-center w-1/2 p-3 mx-auto text-center">

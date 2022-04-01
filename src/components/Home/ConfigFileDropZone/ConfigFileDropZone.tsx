@@ -67,15 +67,6 @@ export const ConfigFileDropZone: FunctionComponent<ConfigFileDropZone> = ({ onCo
           <Button className="bg-cerulean text-white hover:bg-cerulean-500 border-gray-300 block mx-auto mb-5">
             Select Document
           </Button>
-          <a
-            onClick={(e) => e.stopPropagation()}
-            className="text-cerulean-200 font-bold mt-8"
-            href="https://docs.tradetrust.io/docs/document-creator/config-file/config-generator"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Don’t have a config file? Learn how to create one
-          </a>
         </StyledDropZone>
       </ContentFrame>
     </>

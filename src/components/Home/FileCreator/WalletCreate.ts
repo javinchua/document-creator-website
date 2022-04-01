@@ -1,9 +1,6 @@
-import { ethers } from "ethers";
+import { ethers, Wallet } from "ethers";
 // import inquirer from "inquirer";
-import fetch from "node-fetch";
-import path from "path";
 // import signale from "signale";
-import { CreateWalletCommand } from "./wallet.type";
 import chalk from "chalk";
 // import { Signale } from "signale";
 
@@ -39,27 +36,14 @@ function downloadObjectAsJson(exportObj: any, exportName: string) {
   downloadAnchorNode.remove();
 }
 
-export const create = async ({ fund, outputFile }: CreateWalletCommand, password: string): Promise<string> => {
+export const create = async (password: string): Promise<Wallet> => {
   const wallet = ethers.Wallet.createRandom();
   const json = await wallet.encrypt(password);
-  const outputPath = path.resolve(outputFile);
   // fs.writeFileSync(outputPath, json);
   downloadObjectAsJson(json, "wallet");
 
-  if (fund === "ropsten") {
-    const response = await fetch(`https://faucet.openattestation.com/donate/${wallet.address}`).then((res) =>
-      res.json()
-    );
-    if (response.message) {
-      console.log(`[ropsten] Adding fund to ${wallet.address} failed: ${response.message}`);
-    } else {
-      console.log(
-        `[ropsten] Request to add funds into ${wallet.address} sent. Please wait a while before the funds being added into your wallet. You can check the transaction at https://ropsten.etherscan.io/tx/${response.txhash}`
-      );
-    }
-  }
   console.log(`Wallet with public address ${highlight(wallet.address)} successfully created.`);
   console.log(`Find more details at ${getEtherscanAddress({ network: "ropsten" })}/address/${wallet.address}`);
 
-  return outputPath;
+  return JSON.parse(json);
 };
