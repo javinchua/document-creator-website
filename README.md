@@ -1,3 +1,37 @@
+# Creating TradeTrust documents on Polygon Testnet (Mumbai) with no code
+
+In this project we are tackling two main problems:
+
+1. The **high upfront costs** of deploying the required contracts for a document on Ethreum mainnet
+2. The **technical barriers** in creating a configuration file required to issue the documents
+
+## Migration to Polygon
+
+We have made various modifications to the codebase of the document creator site and TradeTrust website. This allows us to support the deployment of Token Registry and Title Escrow contracts on Polygon Testnet (Mumbai).
+
+Beyond this, we will be looking into deployment on Polygon Mainnet.
+This is also the first step in potential support for Multichain in the future.
+
+## Issues with the current flow of creating documents
+
+It is difficult for someone without technical knowledge to get setup, with the following reasons
+
+- A long lists of prerequisites as detailed [here](https://docs.tradetrust.io/docs/document-creator/prerequisites)
+- Knowledge of command line
+- Have to look through documentation to figure out how to customize documents
+
+Therefore we have created a user interface that will assist the user in creating their own wallet and form configuration file.
+We achieved this by moving the processes that originally could only be done in the command line to the web frontend.
+
+## Objectives Met
+
+1. Testing on Mumbai testnet is complete. Users will soon be able to create and issue docuemnts on Polygon mainnet at low fees.
+2. We have simplified the process of creating and issuing documents:
+   - Before: Go through documentation and setting up local environment which requires a fair amount of **technical knowledge**
+   - After: Complete deployment and configuration process through user interface in **a few clicks**
+
+---
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
