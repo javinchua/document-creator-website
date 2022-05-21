@@ -2,7 +2,14 @@ import { readFileSync } from "fs";
 import { ethers, getDefaultProvider, providers, Signer, Wallet, utils } from "ethers";
 import { Provider } from "@ethersproject/abstract-provider";
 import fs from "fs";
-import { isAwsKmsSignerOption, isWalletOption, NetworkOption, PrivateKeyOption, WalletOrSignerOption } from "./shared";
+import {
+  isAwsKmsSignerOption,
+  isWalletOption,
+  NetworkOption,
+  PrivateKeyOption,
+  WalletOrSignerOption,
+  isInjected,
+} from "./shared";
 import { AwsKmsSigner } from "ethers-aws-kms-signer";
 import fetch from "node-fetch";
 import { BigNumber } from "ethers";
@@ -41,15 +48,15 @@ export const getPrivateKey = ({ keyFile, key }: PrivateKeyOption): string | unde
 
 export const getWalletOrSigner = async (
   { network, ...options }: WalletOrSignerOption & Partial<NetworkOption>,
-  password: string
+  password?: string
 ): Promise<Wallet | ConnectedSigner> => {
   const provider =
     network === "local"
       ? new providers.JsonRpcProvider()
       : network === "maticmum"
-      ? new providers.JsonRpcProvider("https://matic-testnet-archive-rpc.bwarelabs.com")
+      ? new providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com")
       : getDefaultProvider(network === "mainnet" ? "homestead" : network); // homestead => aka mainnet
-  if (isWalletOption(options)) {
+  if (isWalletOption(options) && password) {
     // const { password } = await inquirer.prompt({ type: "password", name: "password", message: "Wallet password" });
     const file = JSON.stringify(options.encryptedWalletPath);
     const wallet = await ethers.Wallet.fromEncryptedJson(file, password);
@@ -66,6 +73,8 @@ export const getWalletOrSigner = async (
     const signer = new AwsKmsSigner(kmsCredentials).connect(provider);
     if (signer.provider) return signer as unknown as ConnectedSigner;
     throw new Error("Unable to attach the provider to the kms signer");
+  } else if (isInjected(options)) {
+    return options.injected as ConnectedSigner;
   } else {
     const privateKey = getPrivateKey(options as any);
 

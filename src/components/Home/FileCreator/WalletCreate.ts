@@ -1,7 +1,8 @@
-import { ethers, Wallet } from "ethers";
+import { ethers, Wallet, Signer } from "ethers";
 // import inquirer from "inquirer";
 // import signale from "signale";
 import chalk from "chalk";
+import Web3Modal from "web3modal";
 // import { Signale } from "signale";
 
 // const interactive = new Signale({ interactive: true, scope: "" });
@@ -46,4 +47,26 @@ export const create = async (password: string): Promise<Wallet> => {
   console.log(`Find more details at ${getEtherscanAddress({ network: "ropsten" })}/address/${wallet.address}`);
 
   return JSON.parse(json);
+};
+
+export const connectWeb3 = async (): Promise<Signer> => {
+  const web3Modal = new Web3Modal({
+    providerOptions: {
+      torus: {
+        package: require("@toruslabs/torus-embed"),
+        options: {
+          networkParams: {
+            host: "https://matic-mumbai.chainstacklabs.com",
+            chainId: 80001,
+            networkId: 80001,
+          },
+        },
+      },
+    },
+    disableInjectedProvider: true,
+  });
+  const instance = await web3Modal.connect();
+  const provider = new ethers.providers.Web3Provider(instance);
+  const signer = provider.getSigner();
+  return signer;
 };

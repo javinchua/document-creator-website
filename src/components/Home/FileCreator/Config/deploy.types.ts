@@ -1,3 +1,5 @@
+import { Signer } from "ethers";
+
 export interface NetworkOption {
   network: string;
 }
@@ -14,7 +16,13 @@ export type PrivateKeyOption =
       key?: never;
       keyFile?: string;
     };
-export type NetworkAndWalletSignerOption = NetworkOption & (Partial<WalletOption> | Partial<PrivateKeyOption>);
+
+export type InjectedOption = {
+  injected: Signer;
+};
+
+export type NetworkAndWalletSignerOption = NetworkOption &
+  (Partial<WalletOption> | Partial<PrivateKeyOption> | Partial<InjectedOption>);
 
 export interface GasOption {
   gasPriceScale: number;

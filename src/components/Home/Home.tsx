@@ -10,12 +10,14 @@ import { ConfigTemplateCreator } from "./FileCreator/Config/ConfigTemplateCreato
 import { useState } from "react";
 import Grow from "@material-ui/core/Grow";
 import { FundWallet } from "./FileCreator/FundWallet";
+import { Signer } from "ethers";
 
 export const HomeContainer: FunctionComponent = () => {
   const { config } = useConfigContext();
   const { configFile } = usePersistedConfigFile();
   const [jsonConfig, setJsonConfig] = useState<Record<string, unknown>>();
   const [stage, setStage] = useState<number>(0);
+  const [signer, setSigner] = useState<Signer>();
 
   const handlerJson = (object: Record<string, unknown>) => {
     setJsonConfig(object);
@@ -25,10 +27,10 @@ export const HomeContainer: FunctionComponent = () => {
   };
 
   const stages = [
-    <WalletConfigCreator key={0} next={toNextStage} />,
-    <FundWallet key={1} next={toNextStage} />,
+    <WalletConfigCreator key={0} next={toNextStage} setSigner={setSigner} />,
+    <FundWallet key={1} next={toNextStage} signer={signer} />,
     <ConfigTemplateCreator handlerJson={handlerJson} key={2} next={toNextStage} />,
-    <ConfigFileCreator jsonConfig={jsonConfig} key={3} next={toNextStage} />,
+    <ConfigFileCreator jsonConfig={jsonConfig} key={3} next={toNextStage} signer={signer} />,
     <ConfigFileDropZoneContainer key={4} />,
   ];
   // If wallet has been decrypted, redirect to forms

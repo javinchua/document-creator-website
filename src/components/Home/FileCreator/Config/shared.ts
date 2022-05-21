@@ -1,3 +1,4 @@
+import { Signer } from "ethers";
 import { Argv } from "yargs";
 
 export interface NetworkOption {
@@ -40,7 +41,20 @@ export const isWalletOption = (option: any): option is WalletOption => {
   return typeof option?.encryptedWalletPath === "object";
 };
 
-export type WalletOrSignerOption = Partial<PrivateKeyOption> | Partial<AwsKmsSignerOption> | Partial<WalletOption>;
+export type InjectedOption = {
+  injected: Signer;
+};
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export const isInjected = (option: any): option is InjectedOption => {
+  return !!option.injected;
+};
+
+export type WalletOrSignerOption =
+  | Partial<PrivateKeyOption>
+  | Partial<AwsKmsSignerOption>
+  | Partial<WalletOption>
+  | Partial<InjectedOption>;
 
 export interface GasOption {
   gasPriceScale: number;

@@ -68,7 +68,7 @@ export const decryptWalletOrSigner = async (
     config.network === "local"
       ? new providers.JsonRpcProvider()
       : config.network === "maticmum"
-      ? new providers.JsonRpcProvider("https://matic-testnet-archive-rpc.bwarelabs.com")
+      ? new providers.JsonRpcProvider("https://matic-mumbai.chainstacklabs.com")
       : utils.generateProvider({ network: config.network });
   if (isWalletOption(config.wallet)) {
     // For backward compatibility when the wallet is still string

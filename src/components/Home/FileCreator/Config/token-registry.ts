@@ -6,7 +6,7 @@ import { dryRunMode } from "./utils";
 
 export const deployTokenRegistry = async (
   { registryName, registrySymbol, network, gasPriceScale, dryRun, ...rest }: DeployTokenRegistryCommand,
-  password: string
+  password?: string
 ): Promise<TransactionReceipt> => {
   const wallet = await getWalletOrSigner({ network, ...rest }, password);
   const factory = new TradeTrustErc721Factory(wallet);
@@ -24,7 +24,6 @@ export const deployTokenRegistry = async (
   console.log(`Sending transaction to pool`);
   const transaction = await factory.deploy(registryName, registrySymbol, {
     gasPrice: gasPrice.mul(gasPriceScale),
-    gasLimit: "5000000",
   });
   console.log(`Tx hash: ${transaction.deployTransaction.hash}`);
   console.log(`Block Number: ${transaction.deployTransaction.blockNumber}`);

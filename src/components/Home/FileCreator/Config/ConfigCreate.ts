@@ -19,7 +19,7 @@ const SANDBOX_ENDPOINT_URL = "https://sandbox.fyntech.io";
 // };
 
 export const create = async (
-  { encryptedWalletPath, outputDir, configTemplatePath }: CreateConfigCommand,
+  { encryptedWalletPath, outputDir, configTemplatePath, signer }: CreateConfigCommand,
   password: string
 ): Promise<string> => {
   function downloadObjectAsJson(exportObj: any, exportName: string) {
@@ -67,7 +67,9 @@ export const create = async (
   let dnsDid: Dns = "";
 
   if (hasTransferableRecord) {
-    tokenRegistryAddress = await getTokenRegistryAddress(encryptedWalletPath, password);
+    tokenRegistryAddress = signer
+      ? await getTokenRegistryAddress(undefined, undefined, signer)
+      : await getTokenRegistryAddress(encryptedWalletPath, password);
     dnsTransferableRecord = await createTemporaryDns({
       networkId: 80001,
       address: tokenRegistryAddress,

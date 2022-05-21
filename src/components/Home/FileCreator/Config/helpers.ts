@@ -5,6 +5,7 @@ import { deployDocumentStore } from "./document-store";
 import { deployTokenRegistry } from "./token-registry";
 import chalk from "chalk";
 import { OpenAttestationDocument } from "@govtechsg/open-attestation";
+import { Signer } from "ethers";
 export const readFile = (filename: string): any => {
   return fs.readFileSync(filename, "utf8");
 };
@@ -118,18 +119,34 @@ export const getConfigFile = async (configTemplatePath: string, configTemplateUr
   throw new Error("Config template reference not provided.");
 };
 
-export const getTokenRegistryAddress = async (encryptedWalletPath: string, password: string): Promise<string> => {
-  const tokenRegistry = await deployTokenRegistry(
-    {
-      encryptedWalletPath,
+export const getTokenRegistryAddress = async (
+  encryptedWalletPath?: string,
+  password?: string,
+  injected?: Signer
+): Promise<string> => {
+  let tokenRegistry;
+  if (injected) {
+    tokenRegistry = await deployTokenRegistry({
+      injected,
       network: "maticmum",
       gasPriceScale: 1,
       dryRun: false,
       registryName: "Token Registry",
       registrySymbol: "TR",
-    },
-    password
-  );
+    });
+  } else {
+    tokenRegistry = await deployTokenRegistry(
+      {
+        encryptedWalletPath,
+        network: "maticmum",
+        gasPriceScale: 1,
+        dryRun: false,
+        registryName: "Token Registry",
+        registrySymbol: "TR",
+      },
+      password
+    );
+  }
   const { contractAddress } = tokenRegistry;
   console.log(`Token registry deployed, address: ${highlight(contractAddress)}`);
   return contractAddress;

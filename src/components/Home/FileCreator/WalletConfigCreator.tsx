@@ -1,13 +1,15 @@
 import { Button } from "@govtechsg/tradetrust-ui-components";
-import { create } from "./WalletCreate";
+import { create, connectWeb3 } from "./WalletCreate";
 import { FunctionComponent, useState } from "react";
 import { usePersistedWalletFile } from "../../../common/hook/usePersistedWalletFile";
+import { Signer } from "ethers";
 
 interface IWalletConfigCreator {
   next: () => void;
+  setSigner: React.Dispatch<React.SetStateAction<Signer | undefined>>;
 }
 
-export const WalletConfigCreator: FunctionComponent<IWalletConfigCreator> = ({ next }) => {
+export const WalletConfigCreator: FunctionComponent<IWalletConfigCreator> = ({ next, setSigner }) => {
   const [password, setPassword] = useState("");
   const { setWalletFile } = usePersistedWalletFile();
   const handleChange = (event: { target: { value: any } }) => {
@@ -16,6 +18,12 @@ export const WalletConfigCreator: FunctionComponent<IWalletConfigCreator> = ({ n
   const handleCreate = () => {
     create(password).then((res) => {
       setWalletFile(res);
+      next();
+    });
+  };
+  const handleConnect = () => {
+    connectWeb3().then((res) => {
+      setSigner(res);
       next();
     });
   };
@@ -37,6 +45,12 @@ export const WalletConfigCreator: FunctionComponent<IWalletConfigCreator> = ({ n
           onClick={handleCreate}
         >
           Download
+        </Button>
+        <Button
+          className="block mx-auto mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
+          onClick={handleConnect}
+        >
+          Connect Web3
         </Button>
       </div>
     </div>
