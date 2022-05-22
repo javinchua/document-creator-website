@@ -8,9 +8,10 @@ import { WalletConfigCreator } from "./FileCreator/WalletConfigCreator";
 import { ConfigFileCreator } from "./FileCreator/Config/ConfigFileCreator";
 import { ConfigTemplateCreator } from "./FileCreator/Config/ConfigTemplateCreator";
 import { useState } from "react";
-import Grow from "@material-ui/core/Grow";
+// import Grow from "@material-ui/core/Grow";
 import { FundWallet } from "./FileCreator/FundWallet";
 import { Signer } from "ethers";
+import { ProgressBar } from "@govtechsg/tradetrust-ui-components";
 
 export const HomeContainer: FunctionComponent = () => {
   const { config } = useConfigContext();
@@ -40,13 +41,10 @@ export const HomeContainer: FunctionComponent = () => {
     <WalletDecryptionContainer />
   ) : (
     <>
-      {stages.map((display, index) => {
-        return (
-          <Grow in={stage == index} key={index}>
-            <div>{display}</div>
-          </Grow>
-        );
-      })}
+      <ProgressBar step={stage + 1} totalSteps={stages.length} />
+      <div className="max-w-xl p-4 border font-normal rounded-xl bg-white shadow-xl transition-colors duration-200 hover:bg-gray-50 mx-auto">
+        {stages[stage]}
+      </div>
     </>
   );
 };

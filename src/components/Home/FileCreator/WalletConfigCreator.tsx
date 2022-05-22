@@ -22,6 +22,7 @@ export const WalletConfigCreator: FunctionComponent<IWalletConfigCreator> = ({ n
     });
   };
   const handleConnect = () => {
+    console.log("connecting");
     connectWeb3().then((res) => {
       setSigner(res);
       next();
