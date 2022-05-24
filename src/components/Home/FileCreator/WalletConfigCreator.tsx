@@ -32,11 +32,17 @@ export const WalletConfigCreator: FunctionComponent<IWalletConfigCreator> = ({ n
   return (
     <div className="flex flex-col p-3 text-center">
       <div className="p-3">
-        <h2>Step 1: Create a wallet file</h2>
+        <h2 className="underline">Step 1</h2>
+        <h2 className="italic">Create a wallet file</h2>
         <form>
-          <p className="mb-2">Please create a password for you wallet file</p>
+          <p className="mb-2">Please create a password for your wallet file</p>
           <p className="mb-2">Please keep this wallet file safe</p>
-          <input type="password" onChange={handleChange} placeholder="password" />
+          <input
+            type="password"
+            onChange={handleChange}
+            placeholder="password"
+            className="border-2 border-black rounded-lg p-2"
+          />
         </form>
       </div>
       <div>
@@ -47,6 +53,7 @@ export const WalletConfigCreator: FunctionComponent<IWalletConfigCreator> = ({ n
         >
           Download
         </Button>
+        <div className="text-lg m-2 mb-5">or</div>
         <Button
           className="block mx-auto mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
           onClick={handleConnect}

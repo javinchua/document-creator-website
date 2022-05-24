@@ -32,7 +32,8 @@ export const ConfigFileCreator: FunctionComponent<JsonProps> = ({ jsonConfig, ne
   return (
     <div className="flex flex-col p-3 text-center">
       <div className="p-3">
-        <h2>Step 4: Create your form configuration file</h2>
+        <h2 className="underline">Step 4</h2>
+        <h2 className="italic">Create your form configuration file</h2>
         {!signer && (
           <form>
             <p className="mb-4">Please enter the password of your wallet file</p>

@@ -18,7 +18,10 @@ export const NewField = ({ field, handleFieldName, handleFieldType, index }: INe
         onChange={(e) => handleFieldType(index, e.target.value as string)}
         select // tell TextField to render select
         label="Field Type"
+        id="outlined-basic"
+        variant="outlined"
         style={{ minWidth: "10rem" }}
+        className="border-2 border-black"
       >
         <MenuItem value={"string"}>String</MenuItem>
         <MenuItem value={"number"}>Number</MenuItem>
@@ -27,6 +30,7 @@ export const NewField = ({ field, handleFieldName, handleFieldType, index }: INe
       <TextField
         label="Field Name"
         value={field.fieldName}
+        variant="outlined"
         onChange={(e) => handleFieldName(index, e.target.value as string)}
       />
     </div>

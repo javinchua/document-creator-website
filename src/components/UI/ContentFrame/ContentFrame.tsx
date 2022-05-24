@@ -8,8 +8,8 @@ export const ContentFrame: React.FunctionComponent<ContentFrameProps> = ({ child
   return (
     <div className="flex justify-between">
       <div className="flex-1 max-w-screen-md">{children}</div>
-      <div className="hidden lg:block ml-8">
-        <img src={"/creator-graphic.png"} />
+      <div className="hidden lg:block ml-8 my-auto">
+        <img src={"/creator-graphic.png"} className="w-32 " />
       </div>
     </div>
   );

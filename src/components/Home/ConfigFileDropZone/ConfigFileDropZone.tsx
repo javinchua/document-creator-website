@@ -49,7 +49,8 @@ export const ConfigFileDropZone: FunctionComponent<ConfigFileDropZone> = ({ onCo
 
   return (
     <>
-      <h2 data-testid="config-dropzone-title" className="mb-8">
+      <h2 className="underline text-center">Step 5</h2>
+      <h2 data-testid="config-dropzone-title" className="mb-4 text-center italic">
         Create and Revoke Document
       </h2>
       <ContentFrame>

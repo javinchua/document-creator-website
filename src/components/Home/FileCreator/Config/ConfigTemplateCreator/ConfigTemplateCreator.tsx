@@ -107,9 +107,10 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson, n
     next();
   };
   return (
-    <div className="flex flex-col items-center w-1/2 p-3 mx-auto text-center">
-      <h2>Step 3: Fill in your form details</h2>
-      <div className="w-3/4 mb-4">
+    <div className="flex flex-col items-center w-full p-3 mx-auto text-center">
+      <h2 className="underline">Step 3</h2>
+      <h2 className="italic">Fill in your form details</h2>
+      <div className="w-4/5 mb-4">
         <FormControl fullWidth>
           {fields.map((field, index) => {
             return (
@@ -124,11 +125,11 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson, n
           })}
         </FormControl>
       </div>
-      <div className="underline cursor-pointer text-cerulean" onClick={addField}>
+      <div className="underline cursor-pointer text-[#4BC3E9]" onClick={addField}>
         Add new field
       </div>
       <Button
-        className="block mx-auto mt-4 mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
+        className="block mx-auto mt-4 mb-5 w-36 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
         onClick={() => turnToJson()}
       >
         Submit

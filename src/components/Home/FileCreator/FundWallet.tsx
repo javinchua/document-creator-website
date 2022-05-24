@@ -22,7 +22,8 @@ export const FundWallet: FunctionComponent<IFundWallet> = ({ next, signer }) => 
   return (
     <div className="flex flex-col items-center p-3 text-center">
       <div className="p-3">
-        <h2>Step 2: Fund your wallet</h2>
+        <h2 className="underline">Step 2</h2>
+        <h2 className="italic">Fund your wallet</h2>
         <p className="mb-2">Deposit native currency of the network of your choice</p>
         <p className="mb-2">Your wallet address: {address || walletFile?.address}</p>
         <div className="flex justify-around">
