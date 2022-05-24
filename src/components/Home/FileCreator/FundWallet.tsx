@@ -20,33 +20,38 @@ export const FundWallet: FunctionComponent<IFundWallet> = ({ next, signer }) => 
   }, [signer]);
 
   return (
-    <div className="flex flex-col items-center p-3 text-center">
-      <div className="p-3">
-        <h2 className="underline">Step 2</h2>
-        <h2 className="italic">Fund your wallet</h2>
-        <p className="mb-2">Deposit native currency of the network of your choice</p>
-        <p className="mb-2">Your wallet address: {address || walletFile?.address}</p>
-        <div className="flex justify-around">
+    <div className="flex flex-col items-start p-3">
+      <h2>Fund your wallet</h2>
+      <p className="mb-2">Deposit currency of the network that the document will be issued on</p>
+      <p>Your wallet address: </p>
+      <p className="mb-4 font-bold">{address || walletFile?.address}</p>
+      <div className="flex flex-col items-center w-full">
+        <div className="flex justify-around w-full">
           <div className="flex flex-col items-center">
-            <p>Ethereum</p>
+            <p className="mb-2 font-bold">Ethereum</p>
             <img
               src="https://icons.iconarchive.com/icons/cjdowner/cryptocurrency-flat/1024/Ethereum-ETH-icon.png"
-              className="h-8"
+              className="h-8 mb-2"
             />
+            <p>ETH</p>
           </div>
           <div className="flex flex-col items-center">
-            <p>Polygon</p>
-            <img src="https://cdn.iconscout.com/icon/free/png-256/polygon-token-4086724-3379854.png" className="h-8" />
+            <p className="mb-2 font-bold">Polygon</p>
+            <img
+              src="https://cdn.iconscout.com/icon/free/png-256/polygon-token-4086724-3379854.png"
+              className="h-8 mb-2"
+            />
+            <p>MATIC</p>
           </div>
         </div>
-      </div>
-      <div>
-        <Button
-          className="block mx-auto mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
-          onClick={() => next()}
-        >
-          Wallet Funded
-        </Button>
+        <div className="mt-4">
+          <Button
+            className="block mx-auto mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
+            onClick={() => next()}
+          >
+            Wallet Funded
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -30,36 +30,39 @@ export const WalletConfigCreator: FunctionComponent<IWalletConfigCreator> = ({ n
   };
 
   return (
-    <div className="flex flex-col p-3 text-center">
-      <div className="p-3">
-        <h2 className="underline">Step 1</h2>
-        <h2 className="italic">Create a wallet file</h2>
+    <div className="flex flex-col p-3 text-left">
+      <h2>Connect a Web3 wallet</h2>
+      <div className="flex flex-col justify-start my-4">
         <form>
-          <p className="mb-2">Please create a password for your wallet file</p>
-          <p className="mb-2">Please keep this wallet file safe</p>
+          <h3>Option 1: Create a wallet file</h3>
+          <p className="my-2">Please create a password for your wallet file, store this file securely.</p>
           <input
             type="password"
             onChange={handleChange}
-            placeholder="password"
-            className="border-2 border-black rounded-lg p-2"
+            placeholder="Password"
+            className="p-2 my-4 border-2 border-gray-400 rounded-lg"
           />
         </form>
+        <div>
+          <Button
+            disabled={password === "" ? true : false}
+            className="block mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
+            onClick={handleCreate}
+          >
+            Download
+          </Button>
+        </div>
       </div>
-      <div>
-        <Button
-          disabled={password === "" ? true : false}
-          className="block mx-auto mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
-          onClick={handleCreate}
-        >
-          Download
-        </Button>
-        <div className="text-lg m-2 mb-5">or</div>
-        <Button
-          className="block mx-auto mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
-          onClick={handleConnect}
-        >
-          Connect Web3
-        </Button>
+      <div className="flex flex-col justify-start my-4">
+        <h3>Option 2: Use existing an Torus account</h3>
+        <div>
+          <Button
+            className="block mt-4 mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
+            onClick={handleConnect}
+          >
+            Connect Account
+          </Button>
+        </div>
       </div>
     </div>
   );

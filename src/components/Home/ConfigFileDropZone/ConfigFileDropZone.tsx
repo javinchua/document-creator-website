@@ -3,7 +3,6 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 import { readFileAsJson } from "../../../common/utils";
 import { ConfigFile } from "../../../types";
 import { getLogger } from "../../../utils/logger";
-import { ContentFrame } from "../../UI/ContentFrame";
 import { StyledDropZone } from "../../UI/StyledDropZone";
 
 const { stack } = getLogger("ConfigFileDropZone");
@@ -49,27 +48,24 @@ export const ConfigFileDropZone: FunctionComponent<ConfigFileDropZone> = ({ onCo
 
   return (
     <>
-      <h2 className="underline text-center">Step 5</h2>
-      <h2 data-testid="config-dropzone-title" className="mb-4 text-center italic">
+      <h2 data-testid="config-dropzone-title" className="mb-4 text-left">
         Create and Revoke Document
       </h2>
-      <ContentFrame>
-        <StyledDropZone
-          dropzoneOptions={dropzoneOptions}
-          defaultStyle={defaultStyle}
-          activeStyle={activeStyle}
-          acceptStyle={acceptStyle}
-          fileErrors={fileErrors}
-          dropzoneIcon={"/dropzone-graphic.png"}
-          dataTestId="config-file-dropzone"
-        >
-          <h4 data-testid="home-description">Drag and drop your configuration file here</h4>
-          <p className="my-4">or</p>
-          <Button className="bg-cerulean text-white hover:bg-cerulean-500 border-gray-300 block mx-auto mb-5">
-            Select Document
-          </Button>
-        </StyledDropZone>
-      </ContentFrame>
+      <StyledDropZone
+        dropzoneOptions={dropzoneOptions}
+        defaultStyle={defaultStyle}
+        activeStyle={activeStyle}
+        acceptStyle={acceptStyle}
+        fileErrors={fileErrors}
+        dropzoneIcon={"/dropzone-graphic.png"}
+        dataTestId="config-file-dropzone"
+      >
+        <h4 data-testid="home-description">Drag and drop your configuration file here</h4>
+        <p className="my-4">or</p>
+        <Button className="block mx-auto mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500">
+          Select Document
+        </Button>
+      </StyledDropZone>
     </>
   );
 };

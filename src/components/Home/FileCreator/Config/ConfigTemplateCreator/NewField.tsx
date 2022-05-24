@@ -20,18 +20,19 @@ export const NewField = ({ field, handleFieldName, handleFieldType, index }: INe
         label="Field Type"
         id="outlined-basic"
         variant="outlined"
-        style={{ minWidth: "10rem" }}
+        style={{ width: "45%" }}
         className="border-2 border-black"
       >
         <MenuItem value={"string"}>String</MenuItem>
         <MenuItem value={"number"}>Number</MenuItem>
-        <MenuItem value={"boolean"}>Boolean</MenuItem>
+        <MenuItem value={"boolean"}>True/False</MenuItem>
       </TextField>
       <TextField
         label="Field Name"
         value={field.fieldName}
         variant="outlined"
         onChange={(e) => handleFieldName(index, e.target.value as string)}
+        style={{ width: "45%" }}
       />
     </div>
   );
