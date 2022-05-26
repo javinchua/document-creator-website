@@ -18,7 +18,7 @@ export const HomeContainer: FunctionComponent = () => {
   const { config } = useConfigContext();
   const { configFile } = usePersistedConfigFile();
   const [jsonConfig, setJsonConfig] = useState<Record<string, unknown>>();
-  const [stage, setStage] = useState<number>(5);
+  const [stage, setStage] = useState<number>(2);
   const [signer, setSigner] = useState<Signer>();
 
   const handlerJson = (object: Record<string, unknown>) => {

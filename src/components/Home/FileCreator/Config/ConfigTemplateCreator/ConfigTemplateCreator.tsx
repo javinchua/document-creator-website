@@ -2,7 +2,7 @@ import { FunctionComponent, useState } from "react";
 import { FormControl } from "@material-ui/core";
 import { NewField } from "./NewField";
 import { Button } from "@govtechsg/tradetrust-ui-components";
-
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 export interface IField {
   fieldType: string;
   fieldName: string;
@@ -124,11 +124,18 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson, n
           })}
         </FormControl>
       </div>
-      <div className="underline cursor-pointer text-[#4BC3E9]" onClick={addField}>
+      {/* <div className="underline cursor-pointer text-[#4BC3E9]" onClick={addField}>
         Add new field
-      </div>
+      </div> */}
       <Button
-        className="block mx-auto mt-4 mb-5 text-white border-gray-300 w-36 bg-cerulean hover:bg-cerulean-500"
+        className="flex my-auto mx-auto mt-4 mb-5 text-white border-gray-300 w-42 bg-[#4BC3E9] hover:bg-cerulean-300"
+        onClick={addField}
+      >
+        Add new field
+        <AddCircleOutlineIcon className=" ml-2 my-auto" />
+      </Button>
+      <Button
+        className="block mx-auto mt-4 mb-5 text-white text-xl border-gray-300 w-52 bg-cerulean hover:bg-cerulean-500"
         onClick={() => turnToJson()}
       >
         Submit
