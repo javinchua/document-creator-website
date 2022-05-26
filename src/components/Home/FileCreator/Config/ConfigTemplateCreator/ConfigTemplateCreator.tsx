@@ -111,14 +111,16 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson, n
   return (
     <div className="flex flex-col w-full p-3 mx-auto text-left items-left">
       <h2>Fill in your form details</h2>
-      <div className="mx-auto font-bold text-lg">Name of file:</div>
-      <TextField
-        label="File Name"
-        // value={field.fieldName}
-        variant="outlined"
-        // onChange={(e) => handleFieldName(index, e.target.value as string)}
-        style={{ width: "45%", marginLeft: "auto", marginRight: "auto" }}
-      />
+      <div className="font-bold mx-auto text-center text-lg my-auto flex items-center border-b-2 border-black pb-3 w-full place-content-center">
+        <span className="mr-3">Name of file:</span>
+        <TextField
+          label="File Name"
+          // value={field.fieldName}
+          variant="outlined"
+          // onChange={(e) => handleFieldName(index, e.target.value as string)}
+          style={{ width: "45%" }}
+        />
+      </div>
       <div className="w-full mt-4 mb-4">
         <FormControl fullWidth>
           {fields.map((field, index) => {
