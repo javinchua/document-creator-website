@@ -62,7 +62,7 @@
     "@material-ui/icons": "^4.11.3",
     "@opengsn/gsn": "^2.1.0",
     "@rjsf/core": "^3.1.0",
-    "@toruslabs/torus-embed": "^1.23.0",
+    "@toruslabs/torus-embed": "1.12.1",
     "ajv": "^8.6.0",
     "axios": "^0.21.2",
     "child_process": "^1.0.2",

@@ -111,17 +111,20 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson, n
   return (
     <div className="flex flex-col w-full p-3 mx-auto text-left items-left">
       <h2>Fill in your form details</h2>
-      <div className="font-bold mx-auto text-center text-lg my-auto flex items-center border-b-2 border-black pb-3 w-full place-content-center">
-        <span className="mr-3">Name of file:</span>
-        <TextField
-          label="File Name"
-          // value={field.fieldName}
-          variant="outlined"
-          // onChange={(e) => handleFieldName(index, e.target.value as string)}
-          style={{ width: "45%" }}
-        />
+      <div className="flex flex-col w-full pb-3 mx-auto my-4 text-lg font-bold">
+        <span className="mb-4">Name of file:</span>
+        <div className="flex flex-grow">
+          <TextField
+            label="File Name"
+            // value={field.fieldName}
+            variant="outlined"
+            // onChange={(e) => handleFieldName(index, e.target.value as string)}
+            style={{ width: "100%" }}
+          />
+        </div>
       </div>
       <div className="w-full mt-4 mb-4">
+        <div className="font-bold">Fields:</div>
         <FormControl fullWidth>
           {fields.map((field, index) => {
             return (
@@ -144,10 +147,10 @@ export const ConfigTemplateCreator: FunctionComponent<Props> = ({ handlerJson, n
         onClick={addField}
       >
         Add new field
-        <AddCircleOutlineIcon className=" ml-2 my-auto" />
+        <AddCircleOutlineIcon className="my-auto ml-2 " />
       </Button>
       <Button
-        className="block mx-auto mt-4 mb-5 text-white text-xl border-gray-300 w-52 bg-cerulean hover:bg-cerulean-500"
+        className="block mx-auto mt-4 mb-5 text-xl text-white border-gray-300 w-52 bg-cerulean hover:bg-cerulean-500"
         onClick={() => turnToJson()}
       >
         Submit

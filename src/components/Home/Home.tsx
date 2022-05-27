@@ -18,7 +18,7 @@ export const HomeContainer: FunctionComponent = () => {
   const { config } = useConfigContext();
   const { configFile } = usePersistedConfigFile();
   const [jsonConfig, setJsonConfig] = useState<Record<string, unknown>>();
-  const [stage, setStage] = useState<number>(2);
+  const [stage, setStage] = useState<number>(0);
   const [signer, setSigner] = useState<Signer>();
 
   const handlerJson = (object: Record<string, unknown>) => {
@@ -43,7 +43,7 @@ export const HomeContainer: FunctionComponent = () => {
   ) : (
     <>
       {stage === 5 ? (
-        <div className="max-w-xl p-4 border font-normal rounded-xl bg-white shadow-xl transition-colors duration-200 hover:bg-gray-50 mx-auto">
+        <div className="max-w-xl p-4 mx-auto font-normal transition-colors duration-200 bg-white border shadow-xl rounded-xl hover:bg-gray-50">
           <FileLister />
         </div>
       ) : (
@@ -51,7 +51,7 @@ export const HomeContainer: FunctionComponent = () => {
           <div className="max-w-xl mx-auto">
             <ProgressBar step={stage + 1} totalSteps={stages.length} />
           </div>
-          <div className="max-w-xl p-4 border font-normal rounded-xl bg-white shadow-xl transition-colors duration-200 hover:bg-gray-50 mx-auto">
+          <div className="max-w-xl p-4 mx-auto font-normal transition-colors duration-200 bg-white border shadow-xl rounded-xl hover:bg-gray-50">
             {stages[stage]}
           </div>
         </>
