@@ -32,14 +32,17 @@ export const ConfigFileCreator: FunctionComponent<JsonProps> = ({ jsonConfig, ne
   return (
     <div className="flex flex-col p-3 text-left">
       <div className="p-3">
-        <h2>Download your form configuration file</h2>
+        <h2>Generate your form configuration file</h2>
         {!signer && (
           <form>
             <p className="mb-4">Please enter the password of your wallet file</p>
             <input type="password" onChange={handleChange} placeholder="Password" />
           </form>
         )}
-        <p className="my-2">You will use this file to issue any document that follows the configuration.</p>
+        <div className="my-2 text-xl">You will use this file to issue any document that follows the configuration.</div>
+        <div className="my-2 text-xl">
+          Please give us a few seconds while your contract is deployed to the blockchain.
+        </div>
       </div>
       <div>
         <Button
