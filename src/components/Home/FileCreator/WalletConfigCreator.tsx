@@ -54,7 +54,7 @@ export const WalletConfigCreator: FunctionComponent<IWalletConfigCreator> = ({ n
         </div>
       </div>
       <div className="flex flex-col justify-start my-4">
-        <h3>Option 2: Use existing an Torus account</h3>
+        <h3>Option 2: Use an existing Torus account</h3>
         <div>
           <Button
             className="block mt-4 mb-5 text-white border-gray-300 bg-cerulean hover:bg-cerulean-500"
